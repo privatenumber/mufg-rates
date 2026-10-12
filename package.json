@@ -1,7 +1,7 @@
 {
-	"name": "mufg-rates",
+	"name": "murc-rates",
 	"version": "0.0.0-semantic-release",
-	"description": "Typed wrapper for MUFG Bank exchange rates from MURC",
+	"description": "Unofficial TypeScript client and CLI for exchange rates published by MURC",
 	"keywords": [
 		"mufg",
 		"murc",

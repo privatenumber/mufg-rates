@@ -1,11 +1,11 @@
 ---
-name: mufg-exchange-rates
-description: Fetch MUFG Bank exchange rates (TTS/TTB/TTM) from MURC for currency conversion, tax-related recordkeeping, and financial data lookup. Covers 31+ currencies daily since 1990, monthly/yearly summaries, world rates, and reference rates.
+name: murc-rates
+description: Using murc-rates to fetch exchange-rate data published by MURC, including MUFG Bank TTS/TTB/TTM rates, JPY conversion, historical archives, monthly/yearly summaries, and world reference rates against USD.
 ---
 
-# MUFG Exchange Rates
+# MURC Exchange Rates
 
-Typed wrapper for MUFG Bank exchange rates published by MURC (三菱UFJリサーチ＆コンサルティング).
+Use murc-rates for exchange-rate data published by MURC (三菱UFJリサーチ＆コンサルティング), including MUFG Bank rates and extended reference data against JPY and USD.
 
 ## API
 
@@ -16,7 +16,7 @@ Typed wrapper for MUFG Bank exchange rates published by MURC (三菱UFJリサー
 | `fetchDaily(date?)` | Daily TTS/TTB + cash selling/buying rates | 2005+ |
 | `fetchMonthly(year, month)` | Month-end + monthly average + local market rates | 2005-09+ |
 | `fetchYearly(year)` | Year-end + yearly average | 2003+ |
-| `fetchWorld()` | ~73 countries vs USD | Latest month |
+| `fetchWorld()` | World reference rates against USD | Latest month |
 | `fetchReference(year)` | 8 additional currencies (TWD, BRL, etc.) | 2006+ |
 | `getArchiveSourceUrl(year)` | Official yearly XLS URL | 1990+ |
 | `downloadArchiveSource(year)` | Untouched yearly XLS bytes | 1990+ |
@@ -25,7 +25,7 @@ Typed wrapper for MUFG Bank exchange rates published by MURC (三菱UFJリサー
 ## Quick Start
 
 ```ts
-import { fetchRates } from 'mufg-rates';
+import { fetchRates } from 'murc-rates';
 
 const result = await fetchRates('2025-01-06');
 if (result) {
@@ -38,34 +38,34 @@ if (result) {
 
 ```bash
 # Daily TTS/TTB/TTM for a specific date
-mufg-rates rates 2025-01-06
-mufg-rates rates 2025-01-06 --currency USD
+murc-rates rates 2025-01-06
+murc-rates rates 2025-01-06 --currency USD
 
 # Convert between JPY and one foreign currency
-mufg-rates convert -a 100 -f USD -t JPY -d 2025-01-06
+murc-rates convert -a 100 -f USD -t JPY -d 2025-01-06
 
 # Today's daily rates with cash rates
-mufg-rates daily
-mufg-rates daily 2025-03-15
+murc-rates daily
+murc-rates daily 2025-03-15
 
 # Monthly summary (month-end + average)
-mufg-rates monthly 2025 1
+murc-rates monthly 2025 1
 
 # Yearly summary (year-end + average)
-mufg-rates yearly 2024
+murc-rates yearly 2024
 
-# World rates (~73 countries vs USD)
-mufg-rates world
+# World reference rates against USD
+murc-rates world
 
 # Reference rates (TWD, BRL, etc.)
-mufg-rates reference 2024
+murc-rates reference 2024
 
 # Yearly archive source workflow
-mufg-rates download-source 2024 -o murc_2024.xls
-mufg-rates parse-archive murc_2024.xls --json
+murc-rates download-source 2024 -o murc_2024.xls
+murc-rates parse-archive murc_2024.xls --json
 
 # Machine-readable JSON output
-mufg-rates rates 2025-01-06 --json
+murc-rates rates 2025-01-06 --json
 ```
 
 Output is human-readable tables by default. Use `--json` for compact JSON. Colors auto-disabled when piped.

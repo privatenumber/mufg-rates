@@ -1,6 +1,6 @@
-# mufg-rates
+# murc-rates
 
-Programmatic access to [MUFG Bank](https://www.bk.mufg.jp/) exchange rates published by [MURC](https://www.murc-kawasesouba.jp/fx/index.php) — 31 currencies with TTS/TTB/TTM, daily data back to 1990. Useful for currency conversion and tax-related recordkeeping workflows that need source-linked rates.
+Unofficial TypeScript client and CLI for exchange-rate data published by [MURC](https://www.murc-kawasesouba.jp/fx/index.php). Access [MUFG Bank](https://www.bk.mufg.jp/) daily and historical rates, cash rates, monthly and yearly summaries, and extended reference data quoted against JPY and USD. Daily TTS/TTB/TTM data covers 31 currencies back to 1990. Useful for currency conversion and tax-related recordkeeping workflows that need source-linked rates.
 
 > [!NOTE]
 > This is an unofficial package, not affiliated with or endorsed by MUFG Bank, MURC, or the National Tax Agency. It fetches publicly available data from the [MURC FX pages](https://www.murc-kawasesouba.jp/fx/index.php). It is not tax, accounting, legal, investment, trading, or settlement advice.
@@ -8,13 +8,13 @@ Programmatic access to [MUFG Bank](https://www.bk.mufg.jp/) exchange rates publi
 ## Install
 
 ```bash
-pnpm add mufg-rates
+pnpm add murc-rates
 ```
 
 ## Quick Start
 
 ```ts
-import { fetchRates } from 'mufg-rates'
+import { fetchRates } from 'murc-rates'
 
 const result = await fetchRates('2025-01-06')
 
@@ -53,21 +53,21 @@ For tax-related workflows, verify the current official NTA sources and your own 
 ## CLI
 
 ```bash
-mufg-rates rates 2025-01-06               # daily rates for a date
-mufg-rates rates 2025-01-06 -c USD        # filter to one currency
-mufg-rates convert -a 100 -f USD -t JPY -d 2025-01-06
-mufg-rates daily                           # today's rates + cash rates
-mufg-rates monthly 2025 1                  # month-end + monthly average
-mufg-rates yearly 2024                     # year-end + yearly average
-mufg-rates world                           # 120+ countries vs USD
-mufg-rates reference 2024                  # TWD, BRL, etc. from local branches
-mufg-rates download-source 2024 -o murc_2024.xls
-mufg-rates parse-archive murc_2024.xls --json
+murc-rates rates 2025-01-06               # daily rates for a date
+murc-rates rates 2025-01-06 -c USD        # filter to one currency
+murc-rates convert -a 100 -f USD -t JPY -d 2025-01-06
+murc-rates daily                         # today's rates + cash rates
+murc-rates monthly 2025 1                # month-end + monthly average
+murc-rates yearly 2024                   # year-end + yearly average
+murc-rates world                         # 120+ countries vs USD
+murc-rates reference 2024                # TWD, BRL, etc. from local branches
+murc-rates download-source 2024 -o murc_2024.xls
+murc-rates parse-archive murc_2024.xls --json
 ```
 
 Output is human-readable tables by default. Add `--json` for machine-readable JSON. Colors auto-disabled when piped.
 
-Conversions accept negative amounts, for example `mufg-rates convert -a -100 -f USD -t JPY -d 2025-01-06`.
+Conversions accept negative amounts, for example `murc-rates convert -a -100 -f USD -t JPY -d 2025-01-06`.
 
 ## API
 
@@ -279,7 +279,7 @@ MURC publishes yearly XLS archive files. The package keeps source download and p
 This avoids a combined public download-and-export API. Use the downloaded source files according to the source site's terms.
 
 ```ts
-import { downloadArchiveSource, parseArchiveWorkbook } from 'mufg-rates'
+import { downloadArchiveSource, parseArchiveWorkbook } from 'murc-rates'
 
 const xlsBuffer = await downloadArchiveSource(2024)
 const result = await parseArchiveWorkbook(xlsBuffer)

@@ -48,6 +48,7 @@ describe('cli', () => {
 
 	test('--help', async () => {
 		const stdout = await cli(['--help']);
+		expect(stdout).toContain('murc-rates');
 		expect(stdout).toContain('rates');
 		expect(stdout).toContain('daily');
 		expect(stdout).toContain('monthly');
@@ -205,7 +206,7 @@ describe('cli', () => {
 	});
 
 	test('download-source writes official XLS bytes to disk', async () => {
-		const temporaryDirectory = await mkdtemp(path.join(os.tmpdir(), 'mufg-rates-'));
+		const temporaryDirectory = await mkdtemp(path.join(os.tmpdir(), 'murc-rates-'));
 		try {
 			const outputPath = path.join(temporaryDirectory, 'murc_2025.xls');
 			const stdout = await cli(['download-source', '2025', '--output', outputPath]);
@@ -223,7 +224,7 @@ describe('cli', () => {
 	});
 
 	test('parse-archive parses a local XLS file', async () => {
-		const temporaryDirectory = await mkdtemp(path.join(os.tmpdir(), 'mufg-rates-'));
+		const temporaryDirectory = await mkdtemp(path.join(os.tmpdir(), 'murc-rates-'));
 		try {
 			const outputPath = path.join(temporaryDirectory, 'murc_2025.xls');
 			await cli(['download-source', '2025', '--output', outputPath]);

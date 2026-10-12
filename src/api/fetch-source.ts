@@ -1,4 +1,4 @@
-const userAgent = 'mufg-rates (+https://www.npmjs.com/package/mufg-rates)';
+const userAgent = 'murc-rates (+https://www.npmjs.com/package/murc-rates)';
 const requestTimeoutMilliseconds = 30_000;
 const maxRetries = 2;
 

@@ -6,7 +6,7 @@ if (!process.env.MUFG_LIVE) {
 	globalThis.fetch = createFixtureFetch();
 }
 
-describe('mufg-rates', () => {
+describe('murc-rates', () => {
 	import('./utils.ts');
 	import('./convert-currency.ts');
 	import('./fetch-rates.ts');
