@@ -278,6 +278,8 @@ MURC publishes yearly XLS archive files. The package keeps source download and p
 
 This avoids a combined public download-and-export API. Use the downloaded source files according to the source site's terms.
 
+Encrypted BIFF8 XLS workbooks are supported only when Excel's default password, `VelvetSweatshop`, passes password verification. Supported formats are standard RC4 version `1.1` and RC4 CryptoAPI versions `2.2`, `3.2`, and `4.2` with RC4/SHA-1 and explicit 40-128-bit keys in 8-bit increments. Other passwords, implicit CryptoAPI key sizes, XOR obfuscation, and other encryption formats are unsupported. Password mismatches, unsupported formats, and malformed encryption metadata produce distinct errors. Parsing keeps all transformations in memory and does not modify the input bytes.
+
 ```ts
 import { downloadArchiveSource, parseArchiveWorkbook } from 'murc-rates'
 

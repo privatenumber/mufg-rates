@@ -316,30 +316,6 @@ const writeWorkbook = (workbook: XLSX.WorkBook) => (
 	}) as Buffer)
 );
 
-const cryptoApiMarkerWorkbook = () => {
-	const cfb = XLSX.CFB.utils.cfb_new();
-	const workbookStream = Buffer.from([
-		// BOF record
-		0x09,
-		0x08,
-		0x00,
-		0x00,
-		// FilePass record
-		0x2F,
-		0x00,
-		0x04,
-		0x00,
-		// major version 4 => RC4 CryptoAPI
-		0x00,
-		0x00,
-		0x04,
-		0x00,
-	]);
-
-	XLSX.CFB.utils.cfb_add(cfb, 'Workbook', workbookStream);
-	return new Response(new Uint8Array(XLSX.CFB.write(cfb) as Buffer));
-};
-
 const archiveWorkbook = (year: number) => {
 	const workbook = XLSX.utils.book_new();
 	const currencies = archiveCurrencies(year);
@@ -516,10 +492,6 @@ const referenceWorkbook = (group: 'a' | 'b') => {
 
 export const createFixtureFetch = (): typeof fetch => async (input) => {
 	const url = urlFromFetchInput(input);
-
-	if (url === 'https://synthetic.local/cryptoapi.xls') {
-		return cryptoApiMarkerWorkbook();
-	}
 
 	if (url.includes('past_3month_result.php?y=2025&m=1&d=6')) {
 		return new Response(table('data-table5', searchRows()));
